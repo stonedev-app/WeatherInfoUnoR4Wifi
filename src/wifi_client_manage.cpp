@@ -29,7 +29,9 @@ void WifiClientManage::get()
         m_client->println("Host: www.google.com");
         m_client->println("Connection: close");
         m_client->println();
+        // Wait for the entire request content to be written, just in case
         m_client->flush();
+        // Wait for some response data to return using peek
         m_client->peek();
     }
 
