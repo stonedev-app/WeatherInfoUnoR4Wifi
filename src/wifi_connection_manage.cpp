@@ -1,7 +1,4 @@
-#include <Arduino.h>
-#include <WiFiS3.h>
 
-#include "arduino_secrets.h"
 #include "wifi_connection_manage.h"
 
 void WifiConnectionManage::init()
