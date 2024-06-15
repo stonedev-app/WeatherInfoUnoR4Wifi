@@ -5,7 +5,15 @@
 #include "wifi_connection_manage.h"
 #include "wifi_client_manage.h"
 
+// URL
+// Host for the Japan Meteorological Agency
+#define JMA_HOST "www.jma.go.jp"
+// Weather forecast summary for Tokyo
+#define WFS_TOKYO "/bosai/forecast/data/overview_forecast/130000.json"
+
+// WiFi connection management class
 WifiConnectionManage wifiConManage;
+// Client management class
 WifiClientManage client;
 
 void setup()
@@ -21,7 +29,7 @@ void setup()
   wifiConManage.init();
 
   // GET request
-  client.get(ROOT_CA, "www.jma.go.jp", "/bosai/forecast/data/overview_forecast/130000.json");
+  client.get(JMA_ROOT_CA, JMA_HOST, WFS_TOKYO);
 }
 
 void loop()
