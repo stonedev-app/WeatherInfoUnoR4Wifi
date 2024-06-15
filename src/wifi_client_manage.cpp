@@ -16,6 +16,13 @@ WifiClientManage::~WifiClientManage()
 
 void WifiClientManage::get()
 {
+    writeRequest();
+    readResponse();
+    stop();
+}
+
+void WifiClientManage::writeRequest()
+{
     char server[] = "www.google.com"; // name address for Google (using DNS)
 
     Serial.println("\nStarting connection to server...");
@@ -34,16 +41,6 @@ void WifiClientManage::get()
         // Wait for some response data to return using peek
         m_client->peek();
     }
-
-    readResponse();
-
-    // if the server's disconnected, stop the client:
-    if (!m_client->connected())
-    {
-        Serial.println();
-        Serial.println("disconnecting from server.");
-        m_client->stop();
-    }
 }
 
 void WifiClientManage::readResponse()
@@ -61,5 +58,16 @@ void WifiClientManage::readResponse()
         {
             Serial.println();
         }
+    }
+}
+
+void WifiClientManage::stop()
+{
+    // if the server's disconnected, stop the client:
+    if (!m_client->connected())
+    {
+        Serial.println();
+        Serial.println("disconnecting from server.");
+        m_client->stop();
     }
 }

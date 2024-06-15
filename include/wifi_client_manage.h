@@ -11,5 +11,7 @@ public:
     void get();
 private:
     WiFiSSLClient* m_client;
+    void writeRequest();
     void readResponse();
+    void stop();
 };
