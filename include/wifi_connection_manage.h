@@ -9,6 +9,7 @@ class WifiConnectionManage
 {
 public:
     void init();
+
 private:
     void printWifiStatus();
 };

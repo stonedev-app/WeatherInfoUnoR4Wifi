@@ -14,7 +14,7 @@ WifiClientManage::~WifiClientManage()
     }
 }
 
-void WifiClientManage::get(const char* rootCA, const char* host, const char* path)
+void WifiClientManage::get(const char *rootCA, const char *host, const char *path)
 {
     setCACert(rootCA);
     writeRequest(host, path);
@@ -22,12 +22,12 @@ void WifiClientManage::get(const char* rootCA, const char* host, const char* pat
     stop();
 }
 
-void WifiClientManage::setCACert(const char* rootCA)
+void WifiClientManage::setCACert(const char *rootCA)
 {
     m_client->setCACert(rootCA);
 }
 
-void WifiClientManage::writeRequest(const char* host, const char* path)
+void WifiClientManage::writeRequest(const char *host, const char *path)
 {
     Serial.println("\nStarting connection to server...");
     // if you get a connection, report back via serial:
