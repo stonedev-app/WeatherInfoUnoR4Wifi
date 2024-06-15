@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <WiFiSSLClient.h>
 
+#include "arduino_secrets.h"
 #include "wifi_connection_manage.h"
 #include "wifi_client_manage.h"
 
@@ -20,7 +21,7 @@ void setup()
   wifiConManage.init();
 
   // GET request
-  client.get();
+  client.get(ROOT_CA, "www.jma.go.jp", "/bosai/forecast/data/overview_forecast/130000.json");
 }
 
 void loop()
