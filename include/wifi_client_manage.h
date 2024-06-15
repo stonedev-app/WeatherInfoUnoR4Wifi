@@ -3,6 +3,8 @@
 #include <Arduino.h>
 #include <WiFiSSLClient.h>
 
+#include "arduino_secrets.h"
+
 class WifiClientManage
 {
 public:
@@ -11,6 +13,7 @@ public:
     void get();
 private:
     WiFiSSLClient* m_client;
+    void setCACert();
     void writeRequest();
     void readResponse();
     void stop();

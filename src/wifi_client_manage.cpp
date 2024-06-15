@@ -16,9 +16,15 @@ WifiClientManage::~WifiClientManage()
 
 void WifiClientManage::get()
 {
+    setCACert();
     writeRequest();
     readResponse();
     stop();
+}
+
+void WifiClientManage::setCACert()
+{
+    m_client->setCACert(ROOT_CA);
 }
 
 void WifiClientManage::writeRequest()
