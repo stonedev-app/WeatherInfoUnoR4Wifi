@@ -36,12 +36,14 @@ void WifiClientManage::setCACert(const char *rootCA)
 
 void WifiClientManage::writeRequest(const char *host, const char *path)
 {
-    Serial.println("\nStarting connection to server...");
+    Serial.println();
+    Serial.println("Starting connection to server...");
     // if you get a connection, report back via serial:
 
     if (m_client->connect(host, 443))
     {
-        Serial.println("connected to server\n");
+        Serial.println("connected to server");
+        Serial.println();
         // Make a HTTP request:
         m_client->println("GET https://" + String(host) + String(path) + " HTTP/1.1");
         m_client->println("Host: " + String(host));
@@ -67,7 +69,8 @@ void WifiClientManage::readResponseHeader(int &contentLength)
         // timeout
         if (hrSize == 0)
         {
-            Serial.println("\nheader reading timeout");
+            Serial.println();
+            Serial.println("header reading timeout");
             break;
         }
 
@@ -103,7 +106,8 @@ void WifiClientManage::readResponseHeader(int &contentLength)
         // the string length will be 0 because \r has been removed beforehand
         if (strlen(headerLine) == 0)
         {
-            Serial.println("header received\n");
+            Serial.println("header received");
+            Serial.println();
             break;
         }
     }
@@ -119,7 +123,8 @@ void WifiClientManage::readResponseBody(int contentLength)
         {
             /* print data to serial port */
             Serial.println(bodyBuf);
-            Serial.println("\nbody received");
+            Serial.println();
+            Serial.println("body received");
         }
         // timeout
         else
