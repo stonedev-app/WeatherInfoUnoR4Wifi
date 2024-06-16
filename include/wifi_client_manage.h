@@ -14,6 +14,9 @@ private:
     WiFiSSLClient *m_client;
     void setCACert(const char *rootCA);
     void writeRequest(const char *host, const char *path);
+    void readResponseHeader(int &contentLength);
+    void readResponseBody(int contentLength);
     void readResponse();
     void stop();
+    bool validateNumber(const char *input);
 };
