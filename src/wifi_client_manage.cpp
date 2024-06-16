@@ -130,17 +130,6 @@ void WifiClientManage::readResponseBody(int contentLength)
     }
 }
 
-void WifiClientManage::readResponse()
-{
-    while (m_client->available())
-    {
-        /* actual data reception */
-        char c = m_client->read();
-        /* print data to serial port */
-        Serial.print(c);
-    }
-}
-
 void WifiClientManage::stop()
 {
     // if the server's disconnected, stop the client:
