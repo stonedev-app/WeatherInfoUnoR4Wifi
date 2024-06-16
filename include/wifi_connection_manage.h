@@ -3,12 +3,10 @@
 #include <Arduino.h>
 #include <WiFiS3.h>
 
-#include "arduino_secrets.h"
-
 class WifiConnectionManage
 {
 public:
-    void init();
+    void init(const char *ssid, const char *pass);
 
 private:
     void printWifiStatus();

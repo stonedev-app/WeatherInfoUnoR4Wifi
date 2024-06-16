@@ -1,7 +1,7 @@
 
 #include "wifi_connection_manage.h"
 
-void WifiConnectionManage::init()
+void WifiConnectionManage::init(const char *ssid, const char *pass)
 {
     // check for the WiFi module:
     if (WiFi.status() == WL_NO_MODULE)
@@ -24,9 +24,9 @@ void WifiConnectionManage::init()
     while (status != WL_CONNECTED)
     {
         Serial.print("Attempting to connect to SSID: ");
-        Serial.println(SECRET_SSID);
+        Serial.println(ssid);
         // Connect to WPA/WPA2 network.
-        status = WiFi.begin(SECRET_SSID, SECRET_PASS);
+        status = WiFi.begin(ssid, pass);
 
         // wait 10 seconds for connection:
         delay(10000);

@@ -26,7 +26,7 @@ void setup()
   }
 
   // WiFi connection
-  wifiConManage.init();
+  wifiConManage.init(SECRET_SSID, SECRET_PASS);
 
   // GET request
   client.get(JMA_ROOT_CA, JMA_HOST, WFS_TOKYO);
