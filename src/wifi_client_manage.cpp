@@ -24,7 +24,10 @@ void WifiClientManage::get(const char *rootCA, const char *host, const char *pat
     readResponseHeader(contentLength);
     if (contentLength > 0)
     {
-        readResponseBody(contentLength);
+        char *body = new char[contentLength + 1]();
+        readResponseBody(contentLength, body);
+        parseJson(body);
+        delete[] body;
     }
     stop();
 }
@@ -113,16 +116,15 @@ void WifiClientManage::readResponseHeader(int &contentLength)
     }
 }
 
-void WifiClientManage::readResponseBody(int contentLength)
+void WifiClientManage::readResponseBody(int contentLength, char *body)
 {
     if (m_client->connected())
     {
-        char bodyBuf[contentLength + 1] = {0};
-        size_t bodySize = m_client->readBytes(bodyBuf, sizeof(bodyBuf) - 1);
+        size_t bodySize = m_client->readBytes(body, contentLength);
         if (bodySize == contentLength)
         {
             /* print data to serial port */
-            Serial.println(bodyBuf);
+            Serial.println(body);
             Serial.println();
             Serial.println("body received");
         }
@@ -132,6 +134,36 @@ void WifiClientManage::readResponseBody(int contentLength)
             Serial.println("body reading timeout");
             return;
         }
+    }
+}
+
+void WifiClientManage::parseJson(const char *json)
+{
+    Serial.println();
+    Serial.println("== json parse ==");
+
+    JSONVar myObject = JSON.parse(json);
+
+    // JSON.typeof(jsonVar) can be used to get the type of the variable
+    if (JSON.typeof(myObject) == "undefined")
+    {
+        Serial.println("Parsing failed!");
+        return;
+    }
+
+    Serial.println();
+    Serial.print("JSON.typeof = ");
+    Serial.println(JSON.typeof(myObject)); // prints: object
+
+    // JSONVars can be printed using print or println
+    Serial.println();
+    Serial.println(myObject);
+
+    if (myObject.hasOwnProperty("text"))
+    {
+        Serial.println();
+        Serial.print("[\"text\"] = ");
+        Serial.println((const char *)myObject["text"]);
     }
 }
 

@@ -3,6 +3,8 @@
 #include <Arduino.h>
 #include <WiFiSSLClient.h>
 
+#include <Arduino_JSON.h>
+
 class WifiClientManage
 {
 public:
@@ -15,7 +17,8 @@ private:
     void setCACert(const char *rootCA);
     void writeRequest(const char *host, const char *path);
     void readResponseHeader(int &contentLength);
-    void readResponseBody(int contentLength);
+    void readResponseBody(int contentLength, char *body);
+    void parseJson(const char *json);
     void stop();
     bool validateNumber(const char *input);
 };
