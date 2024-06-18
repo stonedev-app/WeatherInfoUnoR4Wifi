@@ -16,7 +16,7 @@ WifiClientManage::~WifiClientManage()
     }
 }
 
-void WifiClientManage::get(const char *rootCA, const char *host, const char *path)
+void WifiClientManage::get(const char *rootCA, const char *host, const char *path, JSONVar &response)
 {
     int contentLength = 0;
     setCACert(rootCA);
@@ -26,7 +26,7 @@ void WifiClientManage::get(const char *rootCA, const char *host, const char *pat
     {
         char *body = new char[contentLength + 1]();
         readResponseBody(contentLength, body);
-        parseJson(body);
+        parseJson(body, response);
         delete[] body;
     }
     stop();
@@ -137,15 +137,15 @@ void WifiClientManage::readResponseBody(int contentLength, char *body)
     }
 }
 
-void WifiClientManage::parseJson(const char *json)
+void WifiClientManage::parseJson(const char *json, JSONVar &response)
 {
     Serial.println();
     Serial.println("== json parse ==");
 
-    JSONVar myObject = JSON.parse(json);
+    response = JSON.parse(json);
 
     // JSON.typeof(jsonVar) can be used to get the type of the variable
-    if (JSON.typeof(myObject) == "undefined")
+    if (JSON.typeof(response) == "undefined")
     {
         Serial.println("Parsing failed!");
         return;
@@ -153,17 +153,17 @@ void WifiClientManage::parseJson(const char *json)
 
     Serial.println();
     Serial.print("JSON.typeof = ");
-    Serial.println(JSON.typeof(myObject)); // prints: object
+    Serial.println(JSON.typeof(response)); // prints: object
 
     // JSONVars can be printed using print or println
     Serial.println();
-    Serial.println(myObject);
+    Serial.println(response);
 
-    if (myObject.hasOwnProperty("text"))
+    if (response.hasOwnProperty("text"))
     {
         Serial.println();
         Serial.print("[\"text\"] = ");
-        Serial.println((const char *)myObject["text"]);
+        Serial.println((const char *)response["text"]);
     }
 }
 

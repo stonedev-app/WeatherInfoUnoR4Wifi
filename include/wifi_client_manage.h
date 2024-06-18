@@ -10,7 +10,7 @@ class WifiClientManage
 public:
     WifiClientManage();
     ~WifiClientManage();
-    void get(const char *rootCA, const char *host, const char *path);
+    void get(const char *rootCA, const char *host, const char *path, JSONVar &response);
 
 private:
     WiFiSSLClient *m_client;
@@ -18,7 +18,7 @@ private:
     void writeRequest(const char *host, const char *path);
     void readResponseHeader(int &contentLength);
     void readResponseBody(int contentLength, char *body);
-    void parseJson(const char *json);
+    void parseJson(const char *json, JSONVar &response);
     void stop();
     bool validateNumber(const char *input);
 };

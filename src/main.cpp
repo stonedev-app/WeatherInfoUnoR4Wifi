@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include <WiFiSSLClient.h>
 
+#include <Arduino_JSON.h>
+
 #include "arduino_secrets.h"
 #include "wifi_connection_manage.h"
 #include "wifi_client_manage.h"
@@ -28,8 +30,12 @@ void setup()
   // WiFi connection
   wifiConManage.init(SECRET_SSID, SECRET_PASS);
 
+  // response data
+  JSONVar response;
+
   // GET request
-  client.get(JMA_ROOT_CA, JMA_HOST, WFS_TOKYO);
+  client.get(JMA_ROOT_CA, JMA_HOST, WFS_TOKYO, response);
+
 }
 
 void loop()
